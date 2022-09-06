@@ -1,16 +1,22 @@
-import React, { useState } from 'react';
-import { SafeAreaView, View, FlatList, StyleSheet, Text, StatusBar } from 'react-native';
-
-
-
-
+import React, { useState } from 'react'
+import { useEffect } from 'react'
+import { SafeAreaView, View, FlatList, StyleSheet, Text, StatusBar } from 'react-native'
+import { useDispatch, useSelector } from 'react-redux';
+import { setUsers } from '../message-redux-toolkit/messageSlice';
 const Users = () => {
+  const dispatch = useDispatch();
+  // const { users } = useSelector((state) => state.users)
+
   const DATA = 'https://jsonplaceholder.typicode.com/users'
-  const [user, setUser] = useState([])
+  const [userData, setUserData] = useState([])
   fetch(DATA)
     .then(response => response.json())
-    .then(data => setUser(data))
+    .then(data => setUserData(data))
 
+  useEffect(() => {
+  () => dispatch(setUsers(userData));
+
+  }, [])
   const Item = ({ title }) => (
     <View style={styles.item}>
       <Text style={styles.title}>{title}</Text>
@@ -24,7 +30,7 @@ const Users = () => {
   return (
     <SafeAreaView style={styles.container}>
       <FlatList
-        data={user}
+        data={userData}
         renderItem={renderItem}
         keyExtractor={item => item.id}
       />

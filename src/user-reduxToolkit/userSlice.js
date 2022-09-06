@@ -1,16 +1,16 @@
 import { createSlice } from "@reduxjs/toolkit"
 
-const messageSlice = createSlice({
+const usersSlice = createSlice({
   name: "users",
   initialState: {
-    message: []
+    users: []
   },
   reducers: {
-    setMessage(state, action) {
-      state.message = action.payload
+    setUsers(state, action) {
+      state.users = action.payload
     }
   }
 })
 
-export const { setMessage } = messageSlice.actions
-export default messageSlice.reducer
+export const { setUsers } = usersSlice.actions
+export default usersSlice.reducer
